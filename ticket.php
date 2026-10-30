@@ -1,0 +1,7 @@
+<?php
+require_once 'config.php';require_login();$id=(int)($_GET['id']??0);
+$st=db()->prepare("SELECT v.*,u.nombre vendedor FROM ventas v JOIN usuarios u ON u.id=v.usuario_id WHERE v.id=?");$st->execute([$id]);$sale=$st->fetch();if(!$sale){http_response_code(404);exit('Venta no encontrada');}
+$st=db()->prepare("SELECT d.*,p.nomb_producto FROM detalle_venta d JOIN productos p ON p.id=d.producto_id WHERE d.venta_id=?");$st->execute([$id]);$items=$st->fetchAll();
+if(!admin() && (int)$sale['usuario_id']!==(int)$_SESSION['user']['id']){http_response_code(403);exit('No autorizado');}
+?>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Comprobante</title><link rel="stylesheet" href="assets/style.css"></head><body class="ticket-page"><div class="ticket"><div class="brand">🍿 Snacks</div><h2>Comprobante de venta</h2><p><b>Venta:</b> <?=h($sale['cod_ventas'])?><br><b>Fecha:</b> <?=h($sale['fec_venta'])?><br><b>Atendió:</b> <?=h($sale['vendedor'])?></p><table><tr><th>Producto</th><th>Cant.</th><th>Precio</th><th>Subtotal</th></tr><?php foreach($items as $it): ?><tr><td><?=h($it['nomb_producto'])?></td><td><?=$it['cantidad']?></td><td><?=money($it['precio_unitario'])?></td><td><?=money($it['subtotal'])?></td></tr><?php endforeach; ?></table><h2 class="ticket-total">TOTAL: <?=money($sale['total'])?></h2><p class="center">¡Gracias por su compra!</p><div class="no-print"><button class="btn primary full" onclick="window.print()">Imprimir comprobante</button><a class="btn secondary full" href="venta.php">Volver a ventas</a></div></div></body></html>

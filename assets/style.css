@@ -1,0 +1,331 @@
+/* =========================================================
+   1. CONFIGURACIÓN GENERAL
+   ========================================================= */
+* {
+    box-sizing: border-box; /* Incluye padding y bordes dentro del ancho total. */
+}
+
+body {
+    margin: 0; /* Quita el margen que el navegador agrega por defecto. */
+    background: #f4f6fb; /* Fondo gris azulado de todas las pantallas. */
+    color: #202638; /* Color principal del texto. */
+    font-family: Arial, Helvetica, sans-serif; /* Tipografía sencilla y legible. */
+    font-size: 15px; /* Tamaño base de los textos. */
+}
+
+/* =========================================================
+   2. BARRA SUPERIOR, LOGO Y MENÚ DE NAVEGACIÓN
+   ========================================================= */
+.topbar {
+    background: #172554; /* Fondo azul oscuro de la cabecera. */
+    color: #fff; /* Texto blanco dentro de la cabecera. */
+    display: flex; /* Coloca logo, menú y usuario en una fila. */
+    align-items: center; /* Centra verticalmente los elementos. */
+    gap: 28px; /* Espacio entre los elementos de la cabecera. */
+    padding: 14px 4%; /* Espacio interior vertical y horizontal. */
+    box-shadow: 0 3px 12px #14234a22; /* Sombra debajo de la cabecera. */
+}
+
+.brand {
+    font-size: 23px; /* Tamaño del nombre/logo Snacks. */
+    font-weight: 800; /* Hace que el logo se vea grueso. */
+    color: inherit; /* Usa el color definido por su contenedor. */
+    text-decoration: none; /* Quita el subrayado del enlace del logo. */
+}
+
+.topbar nav {
+    display: flex; /* Muestra los enlaces del menú en una fila. */
+    gap: 18px; /* Separa cada enlace del menú. */
+    flex: 1; /* Ocupa el espacio libre entre logo y usuario. */
+}
+
+.topbar nav a,
+.logout {
+    color: #dbeafe; /* Color celeste claro de los enlaces. */
+    text-decoration: none; /* Quita el subrayado normal. */
+}
+
+.topbar nav a:hover,
+.logout:hover {
+    color: #fff; /* Al pasar el mouse, el enlace se vuelve blanco. */
+    text-decoration: underline; /* Señala visualmente que es interactivo. */
+}
+
+.user {
+    font-size: 13px; /* Reduce el tamaño del nombre y rol del usuario. */
+    display: flex; /* Alinea nombre, rol y botón salir. */
+    gap: 12px; /* Espacio entre los datos del usuario. */
+    align-items: center; /* Centra verticalmente los datos. */
+}
+
+/* =========================================================
+   3. CONTENIDO Y TÍTULOS
+   ========================================================= */
+.container {
+    max-width: 1400px; /* Evita que el contenido sea demasiado ancho. */
+    margin: 28px auto; /* Centra el contenido y deja espacio arriba/abajo. */
+    padding: 0 24px; /* Evita que el contenido toque los bordes. */
+    min-height: 75vh; /* Mantiene el pie de página hacia abajo. */
+}
+
+h1 {
+    font-size: 28px; /* Tamaño de los títulos principales. */
+    margin: 0 0 8px; /* Separa el título del contenido inferior. */
+}
+
+h2 {
+    font-size: 19px; /* Tamaño de los subtítulos. */
+    margin: 14px 0; /* Espacio alrededor de los subtítulos. */
+}
+
+.muted,
+.hint {
+    color: #6b7280; /* Texto secundario en gris. */
+}
+
+/* =========================================================
+   4. BOTONES Y MENSAJES DEL SISTEMA
+   ========================================================= */
+.btn {
+    border: 0; /* Quita el borde predeterminado del botón. */
+    border-radius: 8px; /* Redondea las esquinas. */
+    padding: 10px 15px; /* Aumenta el área interna para facilitar el clic. */
+    text-decoration: none; /* Quita subrayado cuando el botón es un enlace. */
+    display: inline-block; /* Permite aplicar dimensiones y padding. */
+    text-align: center; /* Centra el texto. */
+    font-weight: 700; /* Texto del botón en negrita. */
+    cursor: pointer; /* Muestra la mano al pasar sobre el botón. */
+    font-size: 14px; /* Tamaño del texto del botón. */
+}
+
+.primary { background: #2563eb; color: white; } /* Botón azul: acciones principales. */
+.secondary { background: #e5e7eb; color: #263248; } /* Botón gris: acciones secundarias. */
+.success { background: #15945b; color: #fff; } /* Botón verde: confirmar/finalizar venta. */
+.disabled { background: #aab1bf; color: white; } /* Apariencia de acciones deshabilitadas. */
+.full { width: 100%; margin-top: 9px; } /* Hace que el botón ocupe todo el ancho disponible. */
+
+.alert {
+    padding: 12px 15px; /* Espacio interior de la notificación. */
+    border-radius: 8px; /* Esquinas redondeadas. */
+    margin: 12px 0; /* Separación vertical. */
+}
+.alert.ok { background: #dcfce7; color: #166534; } /* Mensaje de operación correcta. */
+.alert.error { background: #fee2e2; color: #991b1b; } /* Mensaje de error. */
+
+/* =========================================================
+   5. PANTALLA DE VENTAS: PRODUCTOS Y CARRITO
+   ========================================================= */
+.sales-layout {
+    display: grid; /* Divide la pantalla en catálogo y carrito. */
+    grid-template-columns: minmax(0, 1fr) 430px; /* Catálogo flexible y carrito de 430px. */
+    gap: 24px; /* Espacio entre catálogo y carrito. */
+    align-items: start; /* Alinea ambas columnas desde arriba. */
+    margin-top: 20px; /* Separa el bloque del título. */
+}
+
+.product-grid {
+    display: grid; /* Organiza los productos en una cuadrícula. */
+    grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); /* Crea columnas según el espacio. */
+    gap: 15px; /* Separación entre tarjetas de productos. */
+}
+
+.product-card,
+.cart,
+.form-card,
+.stats > div {
+    background: #fff; /* Fondo blanco de tarjetas y paneles. */
+    border: 1px solid #e5e7eb; /* Borde gris suave. */
+    border-radius: 12px; /* Esquinas redondeadas. */
+    overflow: hidden; /* Evita que imágenes/contenido sobresalgan. */
+    box-shadow: 0 3px 12px #1e293b0a; /* Sombra ligera para dar profundidad. */
+}
+
+.product-card img,
+.no-image {
+    width: 100%; /* La imagen ocupa el ancho de su tarjeta. */
+    height: 135px; /* Todas las imágenes tienen la misma altura. */
+    object-fit: cover; /* Recorta la imagen sin deformarla. */
+    background: #e8eef9; /* Fondo visible mientras no hay imagen. */
+}
+
+.no-image {
+    display: grid; /* Activa cuadrícula para centrar el icono. */
+    place-items: center; /* Centra el icono horizontal y verticalmente. */
+    font-size: 48px; /* Tamaño del icono de producto sin imagen. */
+}
+
+.product-info {
+    padding: 12px; /* Espacio interior de la tarjeta. */
+    display: grid; /* Ordena nombre, precio, stock y botón. */
+    gap: 7px; /* Separación entre esos datos. */
+}
+.product-info strong { color: #1d4ed8; font-size: 18px; } /* Precio destacado en azul. */
+.product-info small { color: #64748b; } /* Stock y texto pequeño en gris. */
+
+.cart {
+    padding: 17px; /* Espacio interior del carrito. */
+    position: sticky; /* Mantiene el carrito visible al desplazarse. */
+    top: 15px; /* Distancia desde el borde superior al quedar fijo. */
+}
+.cart table { font-size: 13px; } /* Reduce texto de la tabla del carrito. */
+
+.total {
+    display: flex; /* Coloca etiqueta TOTAL y monto en extremos opuestos. */
+    justify-content: space-between; /* Separa ambos elementos horizontalmente. */
+    align-items: center; /* Los centra verticalmente. */
+    font-weight: 800; /* Destaca el total. */
+    font-size: 17px; /* Tamaño de la etiqueta. */
+    padding: 18px 0; /* Espacio arriba y abajo. */
+    border-top: 1px solid #e5e7eb; /* Línea que separa el total del detalle. */
+    margin-top: 12px; /* Distancia respecto a la tabla. */
+}
+.total span { font-size: 23px; color: #15803d; } /* Monto total grande y verde. */
+
+.qty {
+    width: 65px; /* Ancho compacto para cantidades. */
+    padding: 7px; /* Espacio interior del campo numérico. */
+    border: 1px solid #cbd5e1; /* Borde gris azulado. */
+    border-radius: 6px; /* Esquinas redondeadas. */
+}
+.remove { color: #dc2626; font-size: 22px; text-decoration: none; } /* Enlace para quitar del carrito. */
+
+/* =========================================================
+   6. TABLAS, FORMULARIOS Y CAMPOS
+   ========================================================= */
+table {
+    border-collapse: collapse; /* Une los bordes de las celdas. */
+    width: 100%; /* La tabla ocupa todo el ancho del contenedor. */
+    background: white; /* Fondo blanco de la tabla. */
+}
+th,
+td {
+    padding: 11px 10px; /* Espacio interior de cada celda. */
+    text-align: left; /* Alinea el contenido a la izquierda. */
+    border-bottom: 1px solid #e5e7eb; /* Línea divisoria entre filas. */
+}
+th {
+    background: #eff4ff; /* Fondo azul muy claro para encabezados. */
+    color: #334155; /* Texto oscuro del encabezado. */
+    font-size: 13px; /* Tamaño ligeramente menor. */
+}
+.table-wrap {
+    overflow-x: auto; /* Permite desplazar tablas anchas en pantallas pequeñas. */
+    border: 1px solid #e5e7eb; /* Borde exterior de la tabla. */
+    border-radius: 10px; /* Esquinas redondeadas. */
+    margin: 15px 0; /* Separación vertical. */
+}
+.form-card { padding: 18px; margin: 20px 0; } /* Panel blanco que contiene formularios. */
+.form-grid {
+    display: grid; /* Ordena campos del formulario en cuadrícula. */
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); /* Ajusta columnas automáticamente. */
+    gap: 14px; /* Espacio entre campos. */
+    align-items: end; /* Alinea la parte inferior de los campos y botones. */
+}
+.form-grid label,
+.filter label {
+    display: grid; /* Coloca etiqueta encima de su campo. */
+    gap: 6px; /* Separación entre etiqueta y campo. */
+    font-weight: 700; /* Etiquetas en negrita. */
+    font-size: 13px; /* Etiquetas ligeramente pequeñas. */
+}
+input,
+select {
+    padding: 10px; /* Espacio interior de los campos. */
+    border: 1px solid #cbd5e1; /* Borde de los campos. */
+    border-radius: 7px; /* Esquinas redondeadas. */
+    font: inherit; /* Hereda la tipografía del sitio. */
+    width: 100%; /* Ocupa el ancho disponible. */
+    background: #fff; /* Fondo blanco. */
+}
+.thumb {
+    width: 52px; /* Ancho de miniatura en la tabla. */
+    height: 42px; /* Alto de miniatura. */
+    object-fit: cover; /* Recorta sin deformar. */
+    border-radius: 5px; /* Redondea la miniatura. */
+}
+.danger-link { color: #dc2626; } /* Enlaces de acciones peligrosas, como desactivar. */
+.inline-form { display: flex; gap: 8px; align-items: center; } /* Campo y botón en una misma línea. */
+.filter { display: flex; gap: 12px; align-items: end; margin: 18px 0; } /* Filtros de informes. */
+
+/* =========================================================
+   7. TARJETAS DE RESUMEN / ESTADÍSTICAS
+   ========================================================= */
+.stats { display: flex; gap: 14px; margin: 20px 0; } /* Coloca indicadores uno al lado del otro. */
+.stats > div {
+    padding: 17px 22px; /* Espacio interior de cada indicador. */
+    min-width: 190px; /* Evita tarjetas demasiado estrechas. */
+    display: grid; /* Coloca descripción y valor en vertical. */
+    gap: 8px; /* Separación entre descripción y valor. */
+}
+.stats small { color: #64748b; } /* Texto descriptivo del indicador. */
+.stats strong { font-size: 24px; color: #1d4ed8; } /* Valor numérico destacado. */
+
+/* =========================================================
+   8. PIE DE PÁGINA Y PANTALLA DE INICIO DE SESIÓN
+   ========================================================= */
+.footer {
+    text-align: center; /* Centra el texto del pie. */
+    padding: 20px; /* Espacio interior del pie. */
+    color: #94a3b8; /* Texto gris claro. */
+    font-size: 12px; /* Texto pequeño. */
+}
+.login-bg {
+    min-height: 100vh; /* Ocupa como mínimo toda la altura de la ventana. */
+    display: grid; /* Activa cuadrícula para centrar el formulario. */
+    place-items: center; /* Centra la tarjeta horizontal y verticalmente. */
+    background: linear-gradient(135deg, #172554, #2563eb); /* Degradado azul del fondo. */
+}
+.login-card {
+    background: #fff; /* Tarjeta blanca de acceso. */
+    border-radius: 16px; /* Esquinas redondeadas. */
+    padding: 35px; /* Espacio interior de la tarjeta. */
+    width: min(410px, 92vw); /* Ancho máximo 410px y adaptable a móviles. */
+    box-shadow: 0 20px 60px #0003; /* Sombra marcada para destacar el acceso. */
+}
+.login-card .brand { color: #1d4ed8; } /* Logo azul dentro del formulario de acceso. */
+.login-card h1 { margin-top: 20px; } /* Separa título del logo. */
+.login-card form { display: grid; gap: 9px; margin-top: 22px; } /* Ordena campos verticalmente. */
+.login-card label { font-weight: 700; font-size: 13px; } /* Etiquetas del acceso. */
+.login-card .hint { font-size: 12px; margin-top: 20px; } /* Nota inferior del acceso. */
+
+/* =========================================================
+   9. COMPROBANTE DE VENTA E IMPRESIÓN
+   ========================================================= */
+.ticket-page { background: #fff; padding: 20px; } /* Fondo blanco para el comprobante. */
+.ticket {
+    max-width: 650px; /* Limita el ancho del comprobante. */
+    margin: 20px auto; /* Centra el comprobante. */
+    padding: 25px; /* Espacio interior. */
+    border: 1px solid #ddd; /* Borde fino. */
+    border-radius: 10px; /* Esquinas redondeadas en pantalla. */
+}
+.ticket .brand { color: #1d4ed8; } /* Logo azul en el comprobante. */
+.ticket-total { text-align: right; margin-top: 20px; } /* Alinea total a la derecha. */
+.center { text-align: center; } /* Clase para centrar mensajes. */
+.print-head { display: none; } /* El encabezado de impresión no aparece en pantalla normal. */
+
+/* =========================================================
+   10. DISEÑO RESPONSIVE: TABLET Y CELULAR
+   ========================================================= */
+@media (max-width: 900px) {
+    .sales-layout { grid-template-columns: 1fr; } /* Catálogo y carrito pasan a una columna. */
+    .cart { position: static; } /* El carrito deja de quedarse fijo. */
+    .topbar { flex-wrap: wrap; } /* Permite que la cabecera use varias líneas. */
+    .topbar nav { order: 3; flex-basis: 100%; flex-wrap: wrap; } /* Menú pasa debajo del logo. */
+    .user { margin-left: auto; } /* Usuario se alinea al extremo derecho. */
+}
+
+/* =========================================================
+   11. ESTILOS ESPECIALES AL IMPRIMIR
+   ========================================================= */
+@media print {
+    body { background: white; } /* Elimina el fondo de color para ahorrar tinta. */
+    .topbar, .footer, .no-print, .alert { display: none !important; } /* Oculta menú, botones y avisos. */
+    .container { margin: 0; padding: 0; max-width: none; } /* Aprovecha la hoja completa. */
+    .print-head { display: block; } /* Muestra título y fecha del reporte impreso. */
+    .table-wrap { border: 0; } /* Quita el marco exterior de la tabla. */
+    .stats > div { box-shadow: none; } /* Quita sombras que no aportan en papel. */
+    .ticket-page { padding: 0; } /* Quita márgenes extra del comprobante. */
+    .ticket { border: 0; margin: 0 auto; box-shadow: none; } /* Imprime el comprobante limpio. */
+    .ticket .no-print { display: none; } /* Oculta botones dentro del comprobante. */
+}

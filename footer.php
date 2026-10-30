@@ -1,0 +1,1 @@
+</main><footer class="footer">Sistema de ventas e inventario · Snacks</footer></body></html>
