@@ -1,15 +1,8 @@
-CREATE DATABASE IF NOT EXISTS snacks CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE snacks;
+CREATE DATABASE IF NOT EXISTS sistema_snacks CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE sistema_snacks;
 
--- Este proyecto reemplaza la estructura antigua de tablas vacías.
--- Haz una copia de seguridad antes de importar si ya tienes información.
-SET FOREIGN_KEY_CHECKS=0;
-DROP TABLE IF EXISTS detalle_venta;
-DROP TABLE IF EXISTS ventas;
-DROP TABLE IF EXISTS inventario;
-DROP TABLE IF EXISTS productos;
-DROP TABLE IF EXISTS usuarios;
-SET FOREIGN_KEY_CHECKS=1;
+-- Esquema del sistema. No elimina tablas ni datos existentes.
+-- Ejecutar solamente si necesitas crear las tablas que todavía no existen.
 
 CREATE TABLE IF NOT EXISTS usuarios (
  id INT AUTO_INCREMENT PRIMARY KEY,

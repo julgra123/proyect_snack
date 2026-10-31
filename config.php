@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-// Iniciar sesión una sola vez
+// La sesión debe iniciarse antes de enviar HTML, espacios o texto.
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
 date_default_timezone_set('America/La_Paz');
 
-// Configuración de Aiven mediante variables de entorno
+// Estas variables se configuran en Render > Environment.
 define('DB_HOST', getenv('DB_HOST') ?: '');
 define('DB_NAME', getenv('DB_NAME') ?: 'sistema_snacks');
 define('DB_USER', getenv('DB_USER') ?: 'avnadmin');
@@ -22,7 +22,7 @@ function db(): PDO {
     if ($pdo === null) {
         if (DB_HOST === '' || DB_PASS === '') {
             throw new RuntimeException(
-                'Faltan las variables de conexión a la base de datos.'
+                'Faltan DB_HOST o DB_PASSWORD en las variables de entorno de Render.'
             );
         }
 
@@ -34,19 +34,18 @@ function db(): PDO {
         $options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES => false
+            PDO::ATTR_EMULATE_PREPARES => false,
         ];
 
-        // Certificado SSL de Aiven
-        if (DB_SSL_CA !== '') {
-            if (!file_exists(DB_SSL_CA)) {
-                throw new RuntimeException(
-                    'No se encontró el certificado SSL de Aiven.'
-                );
-            }
-
-            $options[PDO::MYSQL_ATTR_SSL_CA] = DB_SSL_CA;
+        // Aiven requiere TLS. En Render se configura DB_SSL_CA con la ruta
+        // del archivo CA cargado en Settings/Environment como Secret File.
+        if (DB_SSL_CA === '' || !is_file(DB_SSL_CA)) {
+            throw new RuntimeException(
+                'No se encontró el certificado CA de Aiven. Configura DB_SSL_CA en Render.'
+            );
         }
+
+        $options[PDO::MYSQL_ATTR_SSL_CA] = DB_SSL_CA;
 
         $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
     }
@@ -75,7 +74,6 @@ function require_login(): void {
 
 function require_admin(): void {
     require_login();
-
     if (!admin()) {
         http_response_code(403);
         exit('Acceso exclusivo para administrador.');
@@ -87,17 +85,13 @@ function money($n): string {
 }
 
 function flash(string $msg, string $type = 'ok'): void {
-    $_SESSION['flash'] = [
-        'msg' => $msg,
-        'type' => $type
-    ];
+    $_SESSION['flash'] = ['msg' => $msg, 'type' => $type];
 }
 
 function show_flash(): void {
     if (!empty($_SESSION['flash'])) {
         $f = $_SESSION['flash'];
         unset($_SESSION['flash']);
-
         echo '<div class="alert ' . h($f['type']) . '">' .
              h($f['msg']) .
              '</div>';
