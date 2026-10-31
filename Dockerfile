@@ -4,8 +4,14 @@ RUN docker-php-ext-install pdo_mysql
 
 RUN a2enmod rewrite
 
-# Permitir que PHP lea los Secret Files de Render
-RUN usermod -a -G 1000 www-data
+# Crear o identificar el grupo 1000
+RUN if getent group 1000 >/dev/null; then \
+        GROUP_NAME="$(getent group 1000 | cut -d: -f1)"; \
+    else \
+        groupadd -g 1000 render-secrets; \
+        GROUP_NAME=render-secrets; \
+    fi && \
+    usermod -aG "$GROUP_NAME" www-data
 
 WORKDIR /var/www/html
 
