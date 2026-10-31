@@ -4,6 +4,9 @@ RUN docker-php-ext-install pdo_mysql
 
 RUN a2enmod rewrite
 
+# Permitir que PHP lea los Secret Files de Render
+RUN usermod -a -G 1000 www-data
+
 WORKDIR /var/www/html
 
 COPY . /var/www/html/
