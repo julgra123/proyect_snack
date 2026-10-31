@@ -40,13 +40,13 @@ UnRnPApzetOeWaFlLARJmqWa2TR7oSQ63ORxh2zusE1p5LLjNdPrOlqLhcC31OMP
 r6ufgvRn79gaz/Q/AExd3Ltd+jWuXIfTve6UkBsTYrkn3OoSiud/mQ==
 -----END CERTIFICATE-----
 ');
-if (!file_exists(DB_SSL_CA)) {
-    die('No existe el certificado: ' . DB_SSL_CA);
-}
+//if (!file_exists(DB_SSL_CA)) {
+  //  die('No existe el certificado: ' . DB_SSL_CA);
+//}
 
-if (!is_readable(DB_SSL_CA)) {
-    die('El certificado existe, pero PHP no puede leerlo.');
-}
+//if (!is_readable(DB_SSL_CA)) {
+  //  die('El certificado existe, pero PHP no puede leerlo.');
+//}
 function db(): PDO {
     static $pdo = null;
 
