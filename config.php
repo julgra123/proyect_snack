@@ -70,11 +70,17 @@ function db(): PDO {
 
         // Aiven requiere TLS. En Render se configura DB_SSL_CA con la ruta
         // del archivo CA cargado en Settings/Environment como Secret File.
-        if (DB_SSL_CA === '' || !is_file(DB_SSL_CA)) {
-            throw new RuntimeException(
-                'No se encontró el certificado CA de Aiven. Configura DB_SSL_CA en Render.'
-            );
-        }
+        if (!is_file(DB_SSL_CA)) {
+    throw new RuntimeException(
+        'No existe el certificado CA: ' . DB_SSL_CA
+    );
+}
+
+if (!is_readable(DB_SSL_CA)) {
+    throw new RuntimeException(
+        'PHP no puede leer el certificado CA. Revisa el Secret File de Render.'
+    );
+}
 
         $options[PDO::MYSQL_ATTR_SSL_CA] = DB_SSL_CA;
 
